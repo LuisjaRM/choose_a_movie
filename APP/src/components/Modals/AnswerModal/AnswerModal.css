@@ -1,0 +1,28 @@
+.answer {
+  height: 250px;
+  width: 350px;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.answer-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.answer-button {
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--alternative-color);
+  color: black;
+  font-weight: bold;
+}
+
+.answer-button:hover {
+  color: white;
+  box-shadow: 1px 1px 5px var(--alternative-color);
+}

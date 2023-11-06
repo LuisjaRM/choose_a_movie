@@ -1,0 +1,31 @@
+.confirm {
+  height: 300px;
+  width: 350px;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+.invalidate {
+  color: var(--error-color);
+}
+
+/* svg animation */
+
+.circle {
+  animation: stroke-fill 1s linear forwards;
+}
+
+.check {
+  animation: stroke-fill 5s linear forwards;
+}
+
+@keyframes stroke-fill {
+  0% {
+    stroke-dasharray: 0, 0;
+  }
+
+  100% {
+    stroke-dasharray: 500, 200000;
+  }
+}

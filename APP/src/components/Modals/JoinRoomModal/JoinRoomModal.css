@@ -1,0 +1,11 @@
+.all-rooms {
+  min-height: 375px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--dark-color);
+  border-radius: 10px;
+  border: 1px solid var(--alternative-color);
+  padding: 1rem;
+}

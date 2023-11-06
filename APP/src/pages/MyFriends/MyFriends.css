@@ -1,0 +1,22 @@
+.my-friends-page {
+  min-height: calc(100vh - 7.5vh);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title-section {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.add-friend-button {
+  position: absolute;
+  right: 0;
+}

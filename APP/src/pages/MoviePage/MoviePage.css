@@ -1,0 +1,179 @@
+.movie-page {
+  min-height: calc(100vh - 7.5vh - 7.5vh);
+  display: grid;
+  place-content: center;
+}
+
+.movie-card {
+  width: 100%;
+  width: 325px;
+  height: 475px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--alternative-color);
+  border-radius: 10px;
+  background-color: var(--dark-color-2);
+}
+
+.movie-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.movie-photo,
+.movie-default-wrap,
+.photo-form {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--dark-color-3);
+  background-color: var(--light-color);
+  border-radius: 10px;
+  position: relative;
+}
+
+.send-photo-movie {
+  position: absolute;
+  right: -2.5rem;
+}
+
+.movie-photo {
+  object-fit: cover;
+}
+
+.movie-icon {
+  color: var(--dark-color-2);
+}
+
+.movie-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.movie-icon-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.movie-first-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.created_at {
+  margin-top: 1rem;
+  color: var(--alternative-color);
+  font-weight: bold;
+}
+
+.photo-fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: none;
+  position: relative;
+}
+
+.photo-label,
+.photo-preview {
+  cursor: pointer;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-color-2);
+  border-radius: 10px;
+  color: black;
+}
+
+.photo-preview {
+  object-fit: cover;
+}
+
+.photo-input {
+  display: none;
+}
+
+.movie-title {
+  width: 280px;
+  font-size: 1.5rem;
+  text-align: center;
+  word-break: break-all;
+  color: var(--light-color);
+}
+
+.movie-form {
+  width: 300px;
+  display: flex;
+  justify-content: start;
+  gap: 1rem;
+}
+
+.movie-fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: none;
+  position: relative;
+}
+
+.send-movie-button {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.3rem;
+}
+
+.select {
+  width: 100%;
+  justify-content: start;
+  gap: 1rem;
+}
+
+.select select {
+  width: 125px;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--dark-color-3);
+  color: var(--light-color);
+}
+
+.movie-input {
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--dark-color-3);
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.movie-plataform {
+  width: 280px;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.check-card {
+  background-color: var(--error-color);
+  border: none;
+}
+
+.check-created {
+  color: var(--light-color-2);
+}

@@ -1,0 +1,28 @@
+.my-profile-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.my-profile-button {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--alternative-color);
+  color: black;
+}
+
+.my-profile-button:hover {
+  color: white;
+  box-shadow: 1px 1px 5px var(--alternative-color);
+}
+
+.icon-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}

@@ -1,0 +1,113 @@
+.room-lists {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.room-list {
+  width: 145px;
+  padding: 0.5rem;
+  background-color: var(--dark-color-2);
+  color: var(--light-color-2);
+  border: 1px solid var(--alternative-color);
+  border-radius: 10px;
+}
+
+.room-list-title {
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.room-list-title:hover {
+  color: var(--alternative-color);
+  font-weight: bold;
+}
+
+.room-list ol {
+  margin-left: 1.25rem;
+}
+
+.room-list.open {
+  width: 315px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-list.open ol {
+  width: 100%;
+  padding: 0rem 1rem;
+}
+
+.room-list.open li {
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+.add-button {
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--alternative-color);
+}
+
+.add:hover {
+  color: var(--light-color-2);
+}
+
+.form-section {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.movie {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: justify;
+  gap: 1rem;
+  word-break: break-all;
+}
+
+.movie:hover,
+.movie-li:hover {
+  cursor: pointer;
+  color: var(--alternative-color);
+}
+
+.buttons-wrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.movie-title-overflow {
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.check {
+  text-decoration: line-through 2px var(--error-color);
+}
+
+.check-icon {
+  color: var(--error-color);
+}
+
+.check-icon:hover {
+  color: var(--light-color-2);
+}
+
+.button-section {
+  text-align: center;
+  margin-right: 1rem;
+}
