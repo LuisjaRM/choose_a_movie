@@ -3,10 +3,20 @@ const Joi = require("joi");
 const { joiPasswordExtendCore } = require("joi-password");
 const joiPassword = Joi.extend(joiPasswordExtendCore);
 
-const newUserJoi = joiPassword.object().keys({
-  username: joiPassword.string().min(4).max(15).noWhiteSpaces().required(),
-  email: joiPassword.string().email().required(),
-  password: joiPassword
+const addFilmJoi = joiPassword.object().keys({
+  title: joiPassword.string().max(30).required(),
+  url: joiPassword.string().uri().allow("").max(280),
+  platform: joiPassword.string(),
+  type: joiPassword.string(),
+});
+
+const addRoomJoi = joiPassword.object().keys({
+  title: joiPassword.string().min(4).max(15).required(),
+});
+
+const changePasswordJoi = joiPassword.object().keys({
+  oldPassword: joiPassword.required(),
+  newPassword: joiPassword
     .string()
     .min(8)
     .max(20)
@@ -28,11 +38,13 @@ const resetPasswordJoi = joiPassword.object().keys({
     .minOfUppercase(1)
     .minOfNumeric(1)
     .required(),
+  repeatPassword: joiPassword.string(),
 });
 
-const patchPasswordJoi = joiPassword.object().keys({
-  oldPassword: joiPassword.required(),
-  newPassword: joiPassword
+const signupJoi = joiPassword.object().keys({
+  username: joiPassword.string().min(4).max(15).noWhiteSpaces().required(),
+  email: joiPassword.string().email().required(),
+  password: joiPassword
     .string()
     .min(8)
     .max(20)
@@ -41,43 +53,35 @@ const patchPasswordJoi = joiPassword.object().keys({
     .minOfUppercase(1)
     .minOfNumeric(1)
     .required(),
+  repeatPassword: joiPassword.string(),
 });
 
-const patchUserJoi = joiPassword.object().keys({
+const updateFilmJoi = joiPassword.object().keys({
+  title: joiPassword.string().max(30),
+  url: joiPassword.string().uri().allow("").max(280),
+  platform: joiPassword.string(),
+  type: joiPassword.string(),
+  checkOrDescheck: joiPassword.string(),
+  upOrdown: joiPassword.string(),
+});
+
+const updateProfileJoi = joiPassword.object().keys({
   username: joiPassword.string().min(4).max(15).noWhiteSpaces(),
   email: joiPassword.string().email(),
   phone: joiPassword.string().regex(/^[0-9]{9}$/),
 });
 
-const createRoomJoi = joiPassword.object().keys({
-  roomName: joiPassword.string().min(4).max(15).required(),
-});
-
-const editRoomJoi = joiPassword.object().keys({
-  title: joiPassword.string().min(4).max(15).required(),
-});
-
-const addMovieJoi = joiPassword.object().keys({
-  title: joiPassword.string().max(30).required(),
-  url: joiPassword.string().uri().allow("").max(280),
-  plataform: joiPassword.string(),
-  type: joiPassword.string(),
-});
-
-const editMovieJoi = joiPassword.object().keys({
-  title: joiPassword.string().max(30),
-  url: joiPassword.string().uri().allow("").max(280),
-  plataform: joiPassword.string(),
-  type: joiPassword.string(),
+const updateRoomJoi = joiPassword.object().keys({
+  title: joiPassword.string().min(4).max(15),
 });
 
 module.exports = {
-  newUserJoi,
+  addFilmJoi,
+  addRoomJoi,
+  changePasswordJoi,
   resetPasswordJoi,
-  patchPasswordJoi,
-  patchUserJoi,
-  createRoomJoi,
-  editRoomJoi,
-  addMovieJoi,
-  editMovieJoi,
+  signupJoi,
+  updateFilmJoi,
+  updateProfileJoi,
+  updateRoomJoi,
 };

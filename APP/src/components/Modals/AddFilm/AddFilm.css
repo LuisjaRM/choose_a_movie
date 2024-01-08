@@ -1,0 +1,55 @@
+.add-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.add-form fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+.add-form label {
+  font-weight: bold;
+}
+
+.add-form input,
+.add-form select {
+  width: 225px;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--element-background-color);
+  color: var(--text-color);
+}
+
+.add-form select {
+  width: 125px;
+}
+
+.add-form input:hover,
+.add-form select:hover {
+  background-color: var(--secondary-element-background-color);
+  color: var(--text-color);
+}
+
+.add-post-button {
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 0.25rem 1rem;
+  background-color: var(--element-background-color);
+  border: none;
+  border-radius: 10px;
+}
+
+.add-post-button:hover {
+  box-shadow: 2px 2px 2px var(--secondary-element-background-color);
+  font-weight: bold;
+}

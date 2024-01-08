@@ -8,15 +8,16 @@ import {
 // Routes
 import { Root } from "./Root";
 import { Home } from "../pages/Home/Home";
-import { Validation } from "../pages/Validation/Validation";
-import { MyProfile } from "../pages/MyProfile/MyProfile";
+
+import { AcceptInvitation } from "../pages/AcceptInvitation/AcceptInvitation";
 import { EditProfile } from "../pages/EditProfile/EditProfile";
-import { AddFriend } from "../pages/AddFriend/AddFriend";
-import { MyNotifications } from "../pages/MyNotifications/MyNotifications";
-import { MyFriends } from "../pages/MyFriends/MyFriends";
-import { PublicProfile } from "../pages/PublicProfile/PublicProfile";
-import { RoomPage } from "../pages/RoomPage/RoomPage";
-import { MoviePage } from "../pages/MoviePage/MoviePage";
+import { Film } from "../pages/Film/Film";
+import { FriendProfile } from "../pages/FriendProfile/FriendProfile";
+import { Friends } from "../pages/Friends/Friends";
+import { Notifications } from "../pages/Notifications/Notifications";
+import { Profile } from "../pages/Profile/Profile";
+import { Room } from "../pages/Room/Room";
+import { Validation } from "../pages/Validation/Validation";
 import { NotFound } from "../pages/NotFound/NotFound";
 
 // Use Root as the page structure, Home as home page and each route is specified with its page
@@ -25,18 +26,18 @@ export const Routes = () => {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
-        <Route path="validate/:regCode" element={<Validation />} />
-        <Route path="my-profile/:username" element={<MyProfile />} />
-        <Route path="edit-profile/:username" element={<EditProfile />} />
-        <Route path="add-friend/:username/:regCode" element={<AddFriend />} />
         <Route
-          path="my-notifications/:username"
-          element={<MyNotifications />}
+          path="invitacion/:username/:regCode"
+          element={<AcceptInvitation />}
         />
-        <Route path="my-friends/:username" element={<MyFriends />} />
-        <Route path="user-profile/:username" element={<PublicProfile />} />
-        <Route path="room/:title" element={<RoomPage />} />
-        <Route path="room/:title/:type/:id" element={<MoviePage />} />
+        <Route path="perfil/editar/:username" element={<EditProfile />} />
+        <Route path="sala/:title/:type/:id" element={<Film />} />
+        <Route path="amigos/perfil/:username" element={<FriendProfile />} />
+        <Route path="amigos/:username" element={<Friends />} />
+        <Route path="notificaciones/:username" element={<Notifications />} />
+        <Route path="perfil/:username" element={<Profile />} />
+        <Route path="sala/:id" element={<Room />} />
+        <Route path="validate/:regCode" element={<Validation />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )

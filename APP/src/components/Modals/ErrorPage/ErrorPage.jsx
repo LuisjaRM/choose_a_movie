@@ -1,5 +1,7 @@
 import "./ErrorPage.css";
 
+// Context
+import { useAuth } from "../../../contexts/AuthContext";
 // Material icons
 import { SvgIcon } from "@mui/material";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
@@ -12,11 +14,13 @@ export const ErrorPage = () => {
   const errorMessage = "No tienes permiso para acceder a esta página.";
   const returnBack = "Ir a inicio";
 
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   // HandleClick
   const handleClickReturnBack = () => {
     navigate("/");
+    logout();
   };
   return (
     <section className="modal-back">

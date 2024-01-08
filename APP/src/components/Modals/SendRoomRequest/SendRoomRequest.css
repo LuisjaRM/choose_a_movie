@@ -1,0 +1,16 @@
+.all-rooms {
+  height: 375px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--light-background-color);
+  border-radius: 10px;
+  border: 1px solid var(--element-background-color);
+  padding: 1rem;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

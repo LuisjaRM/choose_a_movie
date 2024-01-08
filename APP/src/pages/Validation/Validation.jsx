@@ -3,18 +3,21 @@ import { ConfirmModal } from "../../components/Modals/ConfirmModal/ConfirmModal"
 // React imports
 import { useEffect, useState } from "react";
 // Service
-import { getValidateService } from "../../services/userServices/getValidateService";
+import { validateService } from "../../services/authServices/ValidateService";
 
 export const Validation = () => {
   // Const
   const message = "Cuenta verificada con éxito.";
+
+  // Href
   const regCode = document.location.href.substring(31);
   const [error, setError] = useState("");
 
+  // Function
   useEffect(() => {
     const validationService = async () => {
       try {
-        await getValidateService({ regCode });
+        await validateService(regCode);
 
         setTimeout(() => {
           window.close();
@@ -40,7 +43,7 @@ export const Validation = () => {
     setError("Código de verificación caducado.");
 
   return (
-    <section className="validation-page">
+    <section>
       <ConfirmModal error={error} message={!error && message} />
     </section>
   );

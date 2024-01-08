@@ -3,10 +3,10 @@ import "./Home.css";
 // Context
 import { useAuth } from "../../contexts/AuthContext";
 // Components
-import { CreateRoomModal } from "../../components/Modals/CreateRoomModal/CreateRoomModal";
-import { RoomAvatarModal } from "../../components/Modals/RoomAvatarModal/RoomAvatarModal";
-import { FriendsToRoomModal } from "../../components/Modals/FriendsToRoomModal/FriendsToRoomModal";
-import { JoinRoomModal } from "../../components/Modals/JoinRoomModal/JoinRoomModal";
+import { CreateRoom } from "../../components/Modals/CreateRoom/CreateRoom";
+import { RoomAvatar } from "../../components/Modals/RoomAvatar/RoomAvatar";
+import { InviteFriendsToRoom } from "../../components/Modals/InviteFriendsToRoom/InviteFriendsToRoom";
+import { SendRoomRequest } from "../../components/Modals/SendRoomRequest/SendRoomRequest";
 // Npm requires
 import debounce from "just-debounce-it";
 // Material icons
@@ -16,8 +16,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Services
-import { useGetMyRooms } from "../../services/useGetServices/useGetDataServices";
-import { useSearchMyRoomService } from "../../services/useGetServices/useGetSearchServices";
+import { useUserRooms } from "../../services/roomServices/useUserRooms";
+import { useSearchUserRooms } from "../../services/roomServices/useSearchUserRooms";
 
 export const Home = () => {
   // Const
@@ -25,21 +25,22 @@ export const Home = () => {
   const joinRoomButton = "Unirse a sala";
   const title = "Mis salas";
 
-  const [roomID, setRoomID] = useState("");
-
-  const [showCreateRoom, setShowCreateRoom] = useState(false);
-  const [showJoinRoom, setShowJoinRoom] = useState(false);
-  const [showRoomAvatarModal, setShowRoomAvatarModal] = useState(false);
-  const [showFriendsToRoomModal, setShowFriendsToRoomModal] = useState(false);
-
+  // Imports
   const { token } = useAuth();
-  const { data: rooms, refresh } = useGetMyRooms(token);
+  const { data: rooms, refresh } = useUserRooms(token);
   const [search, setSearch] = useState("");
-  const { getSearch, data: roomsSearched } = useSearchMyRoomService({
-    token,
+  const { getSearch, data: roomsSearched } = useSearchUserRooms(token, {
     search,
   });
   const navigate = useNavigate();
+
+  // States
+  const [roomID, setRoomID] = useState("");
+
+  const [showCreateRoom, setShowCreateRoom] = useState(false);
+  const [showRoomAvatar, setShowRoomAvatar] = useState(false);
+  const [showInviteFriendsToRoom, setShowInviteFriendsToRoom] = useState(false);
+  const [showRoomRequest, setShowRoomRequest] = useState(false);
 
   // Functions
   const debounceGetRooms = useCallback(
@@ -54,17 +55,17 @@ export const Home = () => {
     setShowCreateRoom(true);
   };
   const handleClickJoinRoom = () => {
-    setShowJoinRoom(true);
+    setShowRoomRequest(true);
   };
 
-  // HandlesChange
+  // HandleChange
   const handleChangeSearch = (e) => {
     const newSearch = e.target.value;
     setSearch(newSearch);
     debounceGetRooms(newSearch);
   };
 
-  // HandlesForm
+  // HandleForm
   const handleFormSearchRoom = async (e) => {
     e.preventDefault();
     getSearch(search);
@@ -120,13 +121,13 @@ export const Home = () => {
             roomsSearched?.length < 3 || rooms?.length < 3 ? "few-rooms" : ""
           }`}
         >
-          {roomsSearched
+          {roomsSearched && search != ""
             ? roomsSearched?.map((room) => (
                 <li
                   key={room.id}
                   title={room.title}
                   onClick={() => {
-                    navigate(`/room/${room.title}`);
+                    navigate(`/sala/${room.title}`);
                   }}
                   className="room-card"
                 >
@@ -152,7 +153,7 @@ export const Home = () => {
                   key={room.id}
                   title={room.title}
                   onClick={() => {
-                    navigate(`/room/${room.title}`);
+                    navigate(`/sala/${room.id}`);
                   }}
                   className="room-card"
                 >
@@ -177,31 +178,34 @@ export const Home = () => {
       </section>
 
       {showCreateRoom && (
-        <CreateRoomModal
+        <CreateRoom
           setShowCreateRoom={setShowCreateRoom}
-          setShowRoomAvatarModal={setShowRoomAvatarModal}
+          setShowRoomAvatar={setShowRoomAvatar}
           setRoomID={setRoomID}
         />
       )}
 
-      {showRoomAvatarModal && (
-        <RoomAvatarModal
-          setShowRoomAvatarModal={setShowRoomAvatarModal}
-          setShowFriendsToRoomModal={setShowFriendsToRoomModal}
+      {showRoomAvatar && (
+        <RoomAvatar
+          setShowRoomAvatar={setShowRoomAvatar}
+          setShowInviteFriendsToRoom={setShowInviteFriendsToRoom}
           roomID={roomID}
+          refresh={refresh}
         />
       )}
 
-      {showFriendsToRoomModal && (
-        <FriendsToRoomModal
-          setShowFriendsToRoomModal={setShowFriendsToRoomModal}
+      {showInviteFriendsToRoom && (
+        <InviteFriendsToRoom
+          setShowInviteFriendsToRoom={setShowInviteFriendsToRoom}
           roomID={roomID}
           setRoomID={setRoomID}
           refresh={refresh}
         />
       )}
 
-      {showJoinRoom && <JoinRoomModal setShowJoinRoom={setShowJoinRoom} />}
+      {showRoomRequest && (
+        <SendRoomRequest setShowRoomRequest={setShowRoomRequest} />
+      )}
     </section>
   );
 };

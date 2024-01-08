@@ -1,8 +1,0 @@
-#room-avatar {
-  height: 250px;
-  width: 350px;
-  background-color: var(--dark-color);
-  color: var(--light-color);
-  border: 1px solid var(--alternative-color);
-  border-radius: 10px;
-}

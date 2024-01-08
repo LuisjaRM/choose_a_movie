@@ -22,7 +22,7 @@ app.use("/uploads", express.static(staticDir));
 
 // Root
 const router = require("./routes/router");
-const { handleErrors, notFound } = require("./middlewares/-exportMiddlewares");
+const { handleErrors, notFound } = require("./middlewares/-export");
 
 app.use(router);
 app.use(notFound);

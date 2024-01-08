@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 // Components
 import { AnswerModal } from "../../components/Modals/AnswerModal/AnswerModal";
 import { ConfirmModal } from "../../components/Modals/ConfirmModal/ConfirmModal";
-import { AvatarFormModal } from "../../components/Modals/AvatarFormModal/AvatarFormModal";
+import { ProfileAvatar } from "../../components/Modals/ProfileAvatar/ProfileAvatar";
 import { ErrorPage } from "../../components/Modals/ErrorPage/ErrorPage";
 // Material icons
 import { SvgIcon } from "@mui/material";
@@ -15,15 +15,11 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Service
-import { patchUserInfoService } from "../../services/userServices/patchUserInfoService";
-import { useGetUserPrivateInfo } from "../../services/useGetServices/useGetDataServices";
+import { usePrivateInfoService } from "../../services/userServices/usePrivateInfoService";
+import { updateProfileService } from "../../services/userServices/updateProfileService";
 
 export const EditProfile = () => {
   // Const
-  const { user, token, logout } = useAuth();
-  const pageHREF = document.location.href.substring(22);
-  const pageUsername = pageHREF.split("/")[1];
-
   const basicInfoTitle = "Información básica";
   const contactInfoTitle = "Información de contacto";
   const avatarTitle = "Avatar";
@@ -43,9 +39,18 @@ export const EditProfile = () => {
     "Correo electrónico modificado. Te hemos enviado un correo de verificación a tu nuevo email.";
   const phoneResponse = "Número de teléfono modificado.";
 
-  const { data: userData, refresh } = useGetUserPrivateInfo(token);
+  // Imports
+  const { user, token, logout } = useAuth();
+  const { data: userData, refresh } = usePrivateInfoService(token);
   const navigate = useNavigate();
 
+  // Href
+  const pageHREF = document.location.href.substring(22);
+  const pageUsername = pageHREF.split("/")[2];
+  // Document Title
+  document.title = `${pageUsername}`;
+
+  // States
   const [showAvatarForm, setShowAvatarForm] = useState(false);
   const [showUsernameForm, setShowUsernameForm] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
@@ -124,11 +129,10 @@ export const EditProfile = () => {
     setAnswer(phoneAnswer);
   };
 
-  // Fetchs
-
-  const patchUsername = async () => {
+  // Functions
+  const changeUsername = async () => {
     try {
-      await patchUserInfoService({ username }, token);
+      await updateProfileService(token, { username });
       setMessage(usernameResponse);
       setShowConfirmModal(true);
       setError("");
@@ -146,9 +150,9 @@ export const EditProfile = () => {
     }
   };
 
-  const patchEmail = async () => {
+  const changeEmail = async () => {
     try {
-      await patchUserInfoService({ email }, token);
+      await updateProfileService(token, { email });
       setMessage(emailResponse);
       setShowConfirmModal(true);
       setError("");
@@ -167,9 +171,9 @@ export const EditProfile = () => {
     }
   };
 
-  const patchPhone = async () => {
+  const changePhone = async () => {
     try {
-      await patchUserInfoService({ phone }, token);
+      await updateProfileService(token, { phone });
       setMessage(phoneResponse);
       setShowConfirmModal(true);
       setError("");
@@ -189,12 +193,12 @@ export const EditProfile = () => {
 
   response &&
     answer === usernameAnswer &&
-    patchUsername() &&
+    changeUsername() &&
     setResponse(false);
 
-  response && answer === emailAnswer && patchEmail() && setResponse(false);
+  response && answer === emailAnswer && changeEmail() && setResponse(false);
 
-  response && answer === phoneAnswer && patchPhone() && setResponse(false);
+  response && answer === phoneAnswer && changePhone() && setResponse(false);
 
   // Errors
   if (error === `"username" length must be at least 4 characters long`)
@@ -275,7 +279,7 @@ export const EditProfile = () => {
                 </section>
 
                 {showAvatarForm && (
-                  <AvatarFormModal
+                  <ProfileAvatar
                     showAvatarForm={showAvatarForm}
                     setShowAvatarForm={setShowAvatarForm}
                     setShowPhoneForm={setShowPhoneForm}

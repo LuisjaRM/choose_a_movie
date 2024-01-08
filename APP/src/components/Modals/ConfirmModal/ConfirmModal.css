@@ -1,11 +1,3 @@
-.confirm {
-  height: 300px;
-  width: 350px;
-  justify-content: center;
-  gap: 2rem;
-  text-align: center;
-}
-
 .invalidate {
   color: var(--error-color);
 }

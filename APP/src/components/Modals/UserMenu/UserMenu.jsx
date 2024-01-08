@@ -3,7 +3,7 @@ import "./UserMenu.css";
 // Context
 import { useAuth } from "../../../contexts/AuthContext";
 // Component
-import { AddFriendModal } from "../AddFriendModal/AddFriendModal";
+import { SendFriendInvitation } from "../SendFriendInvitation/SendFriendInvitation";
 // Hooks
 import { useToggleShowUserMenu } from "../../../hooks/useToggleShowUserMenu";
 // Material icons
@@ -21,15 +21,15 @@ export const UserMenu = ({ showUserMenu, setShowUserMenu }) => {
   const myProfileLink = "Mi perfil";
   const logoutLink = "Cerrar sesión";
 
-  const navigate = useNavigate();
-
+  // Imports
   const { user, logout } = useAuth();
   const username = user?.username;
-
-  // Toggle menu
+  const navigate = useNavigate();
   useToggleShowUserMenu({ setShowUserMenu });
 
-  const [showAddFriend, setShowAddFriendModal] = useState(false);
+  // States
+  const [showSendFriendInvitation, setShowSendFriendInvitation] =
+    useState(false);
 
   // HandlesClick
   const handleClickNav = (e) => {
@@ -40,14 +40,14 @@ export const UserMenu = ({ showUserMenu, setShowUserMenu }) => {
     setShowUserMenu(false);
   };
   const handleClickGoAddFriend = () => {
-    setShowAddFriendModal(true);
+    setShowSendFriendInvitation(true);
   };
   const handleClickGoMyFriends = () => {
-    navigate(`/my-friends/${username}`);
+    navigate(`/amigos/${username}`);
     setShowUserMenu(false);
   };
   const handleClickGoMyProfile = () => {
-    navigate(`/my-profile/${username}`);
+    navigate(`/perfil/${username}`);
     setShowUserMenu(false);
   };
   const handleClickLogout = () => {
@@ -63,7 +63,7 @@ export const UserMenu = ({ showUserMenu, setShowUserMenu }) => {
           <li className="user-info-li">
             {user?.avatar ? (
               <img
-                className="user-avatar"
+                className="icon--avatar"
                 src={`${import.meta.env.VITE_BACKEND}uploads/${user?.avatar}`}
                 alt={user?.username}
                 onClick={handleClickExitMenu}
@@ -102,10 +102,10 @@ export const UserMenu = ({ showUserMenu, setShowUserMenu }) => {
           </li>
         </nav>
 
-        {showAddFriend && (
-          <AddFriendModal
-            setShowAddFriendModal={setShowAddFriendModal}
+        {showSendFriendInvitation && (
+          <SendFriendInvitation
             setShowUserMenu={setShowUserMenu}
+            setShowSendFriendInvitation={setShowSendFriendInvitation}
           />
         )}
       </section>

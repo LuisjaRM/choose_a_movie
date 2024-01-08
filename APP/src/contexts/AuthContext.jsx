@@ -8,6 +8,7 @@ export const AuthContextProvider = ({ children }) => {
   const [userFriends, setUserFriends] = useState(null);
   const [userRooms, setUserRooms] = useState(null);
 
+  // User token
   const login = (token) => {
     setToken(token);
   };
@@ -21,10 +22,11 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("token", token);
   }, [token]);
 
-  useMemo(async () => {
+  // User Info
+  const loadUserInfo = async (token, setUser) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND}my-profile`,
+        `${import.meta.env.VITE_BACKEND}API/v1/users/private-info`,
         {
           headers: {
             Authorization: token,
@@ -42,15 +44,21 @@ export const AuthContextProvider = ({ children }) => {
 
       setUser(data);
     } catch (error) {
-      setToken("");
       setUser(null);
     }
+  };
+
+  useMemo(() => {
+    token != "" && loadUserInfo(token, setUser);
   }, [token]);
 
-  useMemo(async () => {
+  const userRefresh = () => loadUserInfo(token, setUser);
+
+  // User friends
+  const loadUserFriends = async (token, setUserFriends) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND}get-friends`,
+        `${import.meta.env.VITE_BACKEND}API/v1/friends`,
         {
           headers: {
             Authorization: token,
@@ -68,15 +76,21 @@ export const AuthContextProvider = ({ children }) => {
 
       setUserFriends(data);
     } catch (error) {
-      setToken("");
-      setUser(null);
+      setUserFriends(null);
     }
+  };
+
+  useMemo(() => {
+    token != "" && loadUserFriends(token, setUserFriends);
   }, [token]);
 
-  useMemo(async () => {
+  const userFriendsRefresh = () => loadUserFriends(token, setUserFriends);
+
+  // User Rooms
+  const loadUserRooms = async (token, setUserRooms) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND}get-my-rooms`,
+        `${import.meta.env.VITE_BACKEND}API/v1/rooms`,
         {
           headers: {
             Authorization: token,
@@ -94,14 +108,29 @@ export const AuthContextProvider = ({ children }) => {
 
       setUserRooms(data);
     } catch (error) {
-      setToken("");
-      setUser(null);
+      setUserRooms(null);
     }
+  };
+
+  useMemo(() => {
+    token != "" && loadUserRooms(token, setUserRooms);
   }, [token]);
+
+  const userRoomsRefresh = () => loadUserRooms(token, setUserRooms);
 
   return (
     <AuthContext.Provider
-      value={{ token, user, userFriends, userRooms, login, logout }}
+      value={{
+        token,
+        user,
+        userFriends,
+        userRooms,
+        userRefresh,
+        userFriendsRefresh,
+        userRoomsRefresh,
+        login,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,8 +1,55 @@
-/* Error */
+/* Icons */
 
-.error {
-  font-size: 0.8rem;
-  text-align: justify;
+.icons-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  transform: scale(1.2);
+  color: var(--secondary-text-color);
+}
+
+.icon:hover {
+  color: var(--element-background-color);
+}
+
+.icon-button {
+  /* width: fit-content; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.icon--avatar {
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.icon--password {
+  color: var(--element-background-color);
+}
+
+.icon--password:hover {
+  color: var(--secondary-text-color);
+}
+
+.icon--invalidate {
+  transform: scale(2);
+  color: var(--error-color);
+}
+
+.icon--invalidate:hover {
   color: var(--error-color);
 }
 
@@ -12,16 +59,14 @@
   cursor: pointer;
   margin-top: 1rem;
   padding: 0.25rem 1rem;
-  background-color: var(--alternative-color-2);
+  background-color: var(--element-background-color);
   border: none;
   border-radius: 5px;
 }
 
 .button:hover,
 .button:focus {
-  font-weight: bold;
-  color: black;
-  box-shadow: 2px 2px 5px black;
+  background-color: var(--secondary-element-background-color);
 }
 
 .no-button {
@@ -29,34 +74,14 @@
   width: fit-content;
   border: none;
   background-color: rgba(0, 0, 0, 0);
+  color: var(--secondary-text-color);
 }
 
 .no-button:hover {
-  color: var(--alternative-color);
-  text-decoration: underline 1px var(--alternative-color);
+  color: var(--text-color);
 }
 
-/* Icons */
-
-.icon-button {
-  cursor: pointer;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.icon {
-  transform: scale(1.2);
-  color: var(--light-color);
-}
-
-.icon:hover {
-  color: var(--alternative-color);
-}
-
-/* Modals */
+/* Modal Back */
 
 .modal-back {
   cursor: default;
@@ -93,83 +118,33 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: var(--dark-color-2);
-  color: var(--light-color-2);
-  border: 1px solid var(--alternative-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 2px solid var(--element-background-color);
+  box-shadow: 2px 2px 5px var(--element-background-color);
   border-radius: 10px;
+  font-size: 18px;
 }
 
 .small {
-  height: 250px;
+  height: 300px;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+  font-weight: bold;
 }
 
 .modal-body .error {
   margin-top: 0.5rem;
 }
 
-/* LoginModal */
+/* Error */
 
-.login-modal {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  padding: 0 1rem;
-}
-
-.login-modal .title {
-  color: var(--alternative-color);
-}
-
-.login-modal .form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.login-modal fieldset {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  border: none;
-}
-
-.login-modal label {
-  font-weight: bold;
-}
-
-.login-modal input {
-  width: 100%;
-  cursor: pointer;
-  padding: 0.4rem 0.25rem;
-  padding-left: 1rem;
-  background-color: var(--dark-color-3);
-  border: none;
-  border-radius: 10px;
-}
-
-#signup-username,
-#signup-email,
-#login-username,
-#reset-password-code {
-  width: 90%;
-}
-
-.login-modal input:hover,
-.login-modal input:focus {
-  background-color: var(--light-color);
-  color: black;
-}
-
-.login-modal .password-wrap {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.error {
+  font-size: 0.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+  color: var(--error-color);
 }
 
 /* My friends */
@@ -192,15 +167,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem 0.5rem;
-  border: 1px solid var(--alternative-color);
+  background-color: var(--light-background-color);
+  border: 1px solid var(--element-background-color);
   border-radius: 10px;
 }
 
 .friend-card:hover {
-  background-color: var(--alternative-color);
-  color: var(--dark-color);
+  background-color: var(--background-color);
+  color: var(--element-background-color);
   font-weight: bold;
-  box-shadow: 2px 2px 5px orange;
 }
 
 .friend-info {
@@ -216,7 +191,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--alternative-color);
+  border: 1px solid var(--element-background-color);
   border-radius: 50%;
 }
 
@@ -232,13 +207,19 @@
   display: grid;
   place-content: center;
   padding: 1rem;
-  background-color: var(--dark-color-2);
-  border-radius: 10px;
 }
 
 .search-form fieldset {
   display: flex;
-  border: none;
+  background-color: var(--text-color);
+  border: 1px solid var(--background-color);
+  border-radius: 10px;
+}
+
+.search-form fieldset:hover,
+.search-form fieldset:focus {
+  color: var(--background-color);
+  border: 1px solid var(--element-background-color);
 }
 
 .search-form input {
@@ -247,16 +228,16 @@
   border: none;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background-color: var(--dark-color-3);
+  background-color: var(--text-color);
+  color: var(--secondary-background-color);
 }
 
-.search-form input:hover,
 .search-form input:focus {
-  background-color: var(--light-color);
-  color: var(--dark-color);
+  outline: none;
 }
 
 .search-button {
+  cursor: pointer;
   display: grid;
   place-content: center;
   border: none;
@@ -267,72 +248,6 @@
 
 .search-icon {
   transform: scale(0.8);
-}
-
-/* Avatar Form */
-
-.avatar-form {
-  width: 100%;
-  height: 45vh;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 2px solid var(--alternative-color);
-  background-color: #333333;
-}
-
-.avatar-fieldset {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border: none;
-}
-
-.avatar-label,
-.avatar-preview {
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 4px solid var(--alternative-color);
-  border-radius: 50%;
-  background-color: var(--light-color-2);
-  color: black;
-}
-
-.avatar-preview {
-  object-fit: cover;
-}
-
-.avatar-input {
-  display: none;
-}
-
-.add-avatar-icon:hover {
-  color: var(--alternative-color);
-}
-
-.avatar-buttons {
-  display: flex;
-  gap: 2rem;
-}
-
-.avatar-button {
-  cursor: pointer;
-  padding: 0.25rem 1rem;
-  background-color: var(--alternative-color);
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-.avatar-button:hover {
-  color: black;
-  box-shadow: 2px 2px 10px var(--alternative-color);
 }
 
 /* Profile Page */
@@ -354,9 +269,8 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background-color: var(--dark-color-2);
-  color: var(--light-color-2);
-  border: 1px solid var(--alternative-color);
+  background-color: var(--element-background-color);
+  border: 1px solid var(--secondary-text-color);
   border-radius: 10px;
 }
 
@@ -367,9 +281,9 @@
   display: grid;
   place-content: center;
   border-radius: 50%;
-  border: 4px solid var(--alternative-color);
-  background-color: var(--light-color-2);
-  color: #242424;
+  border: 4px solid var(--light-background-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
 }
 
 .profile-avatar {
@@ -399,17 +313,96 @@
 }
 
 .invite-friend:hover {
-  color: var(--ligth-color-3);
+  color: var(--text-color);
 }
 
-.user-avatar {
-  cursor: pointer;
-  width: 26px;
-  height: 26px;
+.element-icon {
+  color: var(--text-color);
+}
+
+.element-icon:hover {
+  color: var(--secondary-text-color);
+}
+
+/* Avatar */
+
+.avatar-form {
+  width: 100%;
+  height: 45vh;
+  padding: 2rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid var(--element-background-color);
+  background-color: var(--background-color);
+}
+
+.avatar-film-form {
+  min-width: 350px;
+  border: 1px solid var(--element-background-color);
+  border-radius: 10px;
+}
+
+.avatar-fieldset {
+  width: 100%;
+  display: flex;
   justify-content: center;
-  border: 1px solid var(--alternative-color);
+  border: none;
+}
+
+.avatar-label,
+.avatar-preview {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid var(--background-color);
   border-radius: 50%;
+  background-color: var(--element-background-color);
+  color: black;
+}
+
+.avatar-preview {
   object-fit: cover;
+}
+
+.avatar-input {
+  display: none;
+}
+
+.add-avatar-icon:hover {
+  color: var(--text-color);
+}
+
+.avatar-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.avatar-button {
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+  background-color: var(--element-background-color);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.avatar-button:hover {
+  background-color: var(--secondary-element-background-color);
+  box-shadow: 1px 1px 5px var(--text-color);
+}
+
+.room-card {
+  border: 1px solid var(--secondary-element-background-color);
+  background-color: var(--secondary-text-color);
+  color: var(--light-background-color);
+  border-radius: 50%;
+}
+
+.room-card:hover {
+  background-color: var(--element-background-color);
 }

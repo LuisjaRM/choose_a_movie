@@ -17,12 +17,11 @@
   padding: 0.25rem 1rem;
   border: none;
   border-radius: 10px;
-  background-color: var(--alternative-color);
-  color: black;
+  background-color: var(--element-background-color);
   font-weight: bold;
 }
 
 .answer-button:hover {
-  color: white;
-  box-shadow: 1px 1px 5px var(--alternative-color);
+  background-color: var(--secondary-element-background-color);
+  box-shadow: 1px 1px 5px var(--text-color);
 }

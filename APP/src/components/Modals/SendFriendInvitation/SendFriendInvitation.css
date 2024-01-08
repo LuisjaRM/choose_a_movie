@@ -1,0 +1,35 @@
+.add-friend-modal {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.add-friend-modal .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-friend-modal fieldset {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.add-friend-modal input {
+  width: 80%;
+  cursor: pointer;
+  padding: 0.4rem 0.25rem;
+  padding-left: 1rem;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 10px;
+}

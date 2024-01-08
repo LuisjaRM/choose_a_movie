@@ -1,110 +1,117 @@
 const express = require("express");
 
 // Middlewares require
+const { authUser, checkUser } = require("../middlewares/-export");
+
+// Auth controllers require
 const {
-  authUser,
-  checkIfUserExists,
-} = require("../middlewares/-exportMiddlewares");
+  login,
+  recoverPassword,
+  resetPassword,
+  signup,
+  validation,
+} = require("../controllers/auth/-export");
+
+// Films controllers require
+const {
+  addFilm,
+  deleteFilm,
+  deleteFilmsChecked,
+  filmProfile,
+  roomFilms,
+  updateFilm,
+} = require("../controllers/films/-export");
+
+// Friends controllers require
+const {
+  acceptFriend,
+  deleteFriend,
+  friendProfile,
+  requestRoom,
+  searchFriend,
+  sendFriendRequest,
+  userFriends,
+} = require("../controllers/friends/-export");
+
+// Notifications controllers require
+const {
+  updateRead,
+  userNotifications,
+} = require("../controllers/notifications/-export");
 
 // Users controllers require
 const {
-  acceptFriend,
-  acceptFriendByEmail,
-  addFriend,
-  deleteFriend,
+  changePassword,
   deleteUser,
-  getFriends,
-  getNotifications,
-  getUserPrivateInfo,
-  getUserPublicInfo,
-  getValidate,
-  patchPassword,
-  patchUserInfo,
-  postLogin,
-  postNewUser,
-  postRecoverPassword,
-  postResetPassword,
-  readNotification,
-  searchFriend,
-} = require("../controllers/userRoutes/-exportControllers");
+  privateInfo,
+  updateProfile,
+} = require("../controllers/users/-export");
 
 // Rooms controllers require
 const {
-  acceptRequestRoom,
-  acceptRoom,
-  addFriendRoom,
-  addMovie,
-  createRoom,
-  deleteChecked,
-  deleteFriendToRoom,
-  deleteMovie,
+  acceptFriendRoom,
+  addRoom,
   deleteRoom,
-  getMovies,
-  getMyRooms,
-  getNotMyRooms,
-  getSingleMovie,
-  getSingleRoom,
-  patchIsCheck,
-  patchMovie,
-  patchOrderValue,
-  patchRoomAvatar,
-  patchRoomTitle,
-  patchPostAvatar,
-  searchMyRoom,
-  searchNotMyRoom,
-  sendRequestRoom,
-} = require("../controllers/roomRoutes/-exportControllers");
+  friendsRooms,
+  removeRoomFriend,
+  roomProfile,
+  searchFriendsRooms,
+  searchUserRooms,
+  updateRoom,
+  userRooms,
+} = require("../controllers/rooms/-export");
 
 // Routes
 const router = express.Router();
 
-// User routes
-router.post("/new-user", checkIfUserExists, postNewUser);
-router.get("/validate/:regCode", checkIfUserExists, getValidate);
-router.post("/login", postLogin);
-router.post("/recover-password", postRecoverPassword);
-router.post("/reset-password", postResetPassword);
-router.patch("/set-password", authUser, patchPassword);
-router.get("/my-profile", authUser, getUserPrivateInfo);
-router.patch("/edit-profile", authUser, patchUserInfo);
-router.delete("/delete-user", authUser, deleteUser);
-router.post("/add-friend", authUser, addFriend);
-router.get("/get-notifications", authUser, getNotifications);
-router.patch("/read-notification/:id", authUser, readNotification);
-router.patch("/accept-friend/:username", authUser, acceptFriend);
-router.patch("/accept-email-friend/:regCode", authUser, acceptFriendByEmail);
-router.get("/get-friends", authUser, getFriends);
-router.post("/search-friend", authUser, searchFriend);
-router.get("/user-profile/:username", authUser, getUserPublicInfo);
-router.delete("/delete-friend/:id", authUser, deleteFriend);
+// Auth routes
+router.post("/API/v1/auth/login", login);
+router.post("/API/v1/auth/password/recovery", recoverPassword);
+router.post("/API/v1/auth/password/resetting", resetPassword);
+router.post("/API/v1/auth/signup", checkUser, signup);
+router.get("/API/v1/auth/validation/:regCode", checkUser, validation);
+
+// Films routes
+router.post("/API/v1/films/:roomID", authUser, addFilm);
+router.delete("/API/v1/films/film/:type/:filmID", authUser, deleteFilm);
+router.get("/API/v1/films/:type/:filmID", authUser, filmProfile);
+router.patch("/API/v1/films/update/:type/:filmID", authUser, updateFilm);
+router.get("/API/v1/films/:roomID", authUser, roomFilms);
+router.delete("/API/v1/films/checked/:type", authUser, deleteFilmsChecked);
+
+// Friend routes
+router.patch("/API/v1/friends/update/:item", authUser, acceptFriend);
+router.delete("/API/v1/friends/:id", authUser, deleteFriend);
+router.get("/API/v1/friends/profile/:username", authUser, friendProfile);
+router.post("/API/v1/friends/update-rooms", authUser, requestRoom);
+router.post("/API/v1/friends/search", authUser, searchFriend);
+router.post("/API/v1/friends", authUser, sendFriendRequest);
+router.get("/API/v1/friends", authUser, userFriends);
+
+// Notifications routes
+router.patch("/API/v1/notifications/:id", authUser, updateRead);
+router.get("/API/v1/notifications", authUser, userNotifications);
+
+// Users routes
+router.patch("/API/v1/users/password", authUser, changePassword);
+router.delete("/API/v1/users", authUser, deleteUser);
+router.get("/API/v1/users/private-info", authUser, privateInfo);
+router.patch("/API/v1/users/update", authUser, updateProfile);
 
 // Room routes
-router.post("/create-room", authUser, createRoom);
-router.patch("/room-avatar/:id", authUser, patchRoomAvatar);
-router.post("/add-friend-room", authUser, addFriendRoom);
-router.patch("/accept-room/:room", authUser, acceptRoom);
-router.get("/get-my-rooms", authUser, getMyRooms);
-router.post("/search-my-room", authUser, searchMyRoom);
-router.get("/get-not-my-rooms", authUser, getNotMyRooms);
-router.post("/search-not-my-room", authUser, searchNotMyRoom);
-router.post("/request-room", authUser, sendRequestRoom);
-router.patch("/accept-request/:room", authUser, acceptRequestRoom);
-router.get("/get-room/:title", authUser, getSingleRoom);
+router.patch("/API/v1/rooms/update-users/:title", authUser, acceptFriendRoom);
+router.post("/API/v1/rooms", authUser, addRoom);
+router.delete("/API/v1/rooms/room/:id", authUser, deleteRoom);
+router.get("/API/v1/rooms/friends-rooms", authUser, friendsRooms);
 router.delete(
-  "/delete-friend-to-room/:user/:room",
+  "/API/v1/rooms/friend/:friendID/:roomID",
   authUser,
-  deleteFriendToRoom
+  removeRoomFriend
 );
-router.patch("/set-room-title/:roomID", authUser, patchRoomTitle);
-router.post("/add-movie/:roomID", authUser, addMovie);
-router.patch("/post-avatar/:type/:id", authUser, patchPostAvatar);
-router.get("/get-movies/:roomID", authUser, getMovies);
-router.get("/get-movie/:type/:movieID", authUser, getSingleMovie);
-router.patch("/set-movie/:type/:movieID", authUser, patchMovie);
-router.patch("/set-order-value/:type/:movieID", authUser, patchOrderValue);
-router.patch("/set-is-check/:type/:movieID", authUser, patchIsCheck);
-router.patch("/delete-checked/:type", authUser, deleteChecked);
-router.patch("/delete-movie/:type/:movieID", authUser, deleteMovie);
-router.patch("/delete-room/:roomTitle", authUser, deleteRoom);
+router.get("/API/v1/rooms/profile/:id", authUser, roomProfile);
+router.post("/API/v1/rooms/friends/search", authUser, searchFriendsRooms);
+router.post("/API/v1/rooms/search", authUser, searchUserRooms);
+router.patch("/API/v1/rooms/update/:id", authUser, updateRoom);
+router.get("/API/v1/rooms", authUser, userRooms);
 
 module.exports = router;

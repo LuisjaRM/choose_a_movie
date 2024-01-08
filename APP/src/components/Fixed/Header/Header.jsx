@@ -13,23 +13,26 @@ import EmailIcon from "@mui/icons-material/Email";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Service
-import { useGetNotifications } from "../../../services/useGetServices/useGetDataServices";
+import { useUserNotifications } from "../../../services/notificationServices/useUserNotifications";
 
 export const Header = () => {
   // Const
-  const title = "ChooseMovie";
+  const title = "ComparteCine";
 
+  // Imports
   const { user, token } = useAuth();
-  const { data: notifications, refresh } = useGetNotifications(token);
+  const { data: notifications, refresh } = useUserNotifications(token);
   const navigate = useNavigate();
 
-  const [readed, setReaded] = useState(true);
+  // States
+  const [areNotifications, setAreNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
+  // Notifications logic
   useEffect(() => {
-    setReaded(true);
+    setAreNotifications(false);
     notifications.forEach((notification) => {
-      notification.readed === 0 && setReaded(false);
+      notification.readed === 0 && setAreNotifications(true);
     });
   }, [notifications]);
 
@@ -45,16 +48,20 @@ export const Header = () => {
     setShowUserMenu(!showUserMenu);
   };
   const handleClickGoMyNotifications = () => {
-    navigate(`/my-notifications/${user?.username}`);
+    navigate(`/notificaciones/${user?.username}`);
   };
 
   return (
     <header>
-      <section className="header-icons" onClick={handleClickIcons}>
-        <section className="icon-button" onClick={handleClickOpenMenu}>
+      <section className="icons-wrap" onClick={handleClickIcons}>
+        <section
+          className="icon-button"
+          title="Menú"
+          onClick={handleClickOpenMenu}
+        >
           {user?.avatar ? (
             <img
-              className="user-avatar"
+              className="icon--avatar"
               src={`${import.meta.env.VITE_BACKEND}uploads/${user?.avatar}`}
               alt={user?.username}
             />
@@ -71,17 +78,17 @@ export const Header = () => {
         <button
           type="button"
           title="Notificaciones"
-          className="icon-button notification-icon"
+          className="icon-button notification-button"
           onClick={handleClickGoMyNotifications}
         >
           <SvgIcon className="icon" component={EmailIcon} inheritViewBox />
 
-          {!readed && <p className="notification"></p>}
+          {areNotifications && <p className="notification"></p>}
         </button>
 
         <button
           type="button"
-          title="Volver a inicio"
+          title="Inicio"
           className="icon-button"
           onClick={handleClickGoHome}
         >
@@ -89,7 +96,7 @@ export const Header = () => {
         </button>
       </section>
 
-      <h1 className="header-title" onClick={handleClickGoHome}>
+      <h1 className="title" onClick={handleClickGoHome}>
         {title}
       </h1>
     </header>

@@ -1,5 +1,5 @@
 export const deleteAccountService = async (token) => {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND}delete-user`, {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND}API/v1/users`, {
     method: "DELETE",
     headers: {
       Authorization: token,

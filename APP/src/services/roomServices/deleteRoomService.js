@@ -1,8 +1,8 @@
-export const deleteRoomService = async (token, roomTitle) => {
+export const deleteRoomService = async (token, roomID) => {
   const response = await fetch(
-    `${import.meta.env.VITE_BACKEND}delete-room/${roomTitle}`,
+    `${import.meta.env.VITE_BACKEND}API/v1/rooms/room/${roomID}`,
     {
-      method: "PATCH",
+      method: "DELETE",
       headers: {
         Authorization: token,
       },

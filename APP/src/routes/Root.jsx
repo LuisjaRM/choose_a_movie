@@ -2,10 +2,11 @@
 import { useAuth } from "../contexts/AuthContext";
 // Components
 import { Header } from "../components/Fixed/Header/Header";
-import { LoginModal } from "../components/Modals/LoginModal/LoginModal";
+import { Auth } from "../components/Modals/Auth/Auth";
 // React imports
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
+import { Loading } from "../components/Modals/Loading/Loading";
 
 // Page structure
 export const Root = () => {
@@ -14,20 +15,24 @@ export const Root = () => {
 
   setTimeout(() => {
     setRender(true);
-  }, 400);
-  const { user } = useAuth();
+  }, 500);
+
+  // Href
   const parameters = document.location.href.substring(22);
   const pageHref = parameters.split("/")[0];
 
-  return (
-    render && (
-      <>
-        <Header />
+  // Imports
+  const { token, user } = useAuth();
 
-        <main>
-          {user || pageHref === "validate" ? <Outlet /> : <LoginModal />}
-        </main>
-      </>
-    )
+  return render ? (
+    <>
+      <Header />
+
+      <main>
+        {(token && user) || pageHref === "validate" ? <Outlet /> : <Auth />}
+      </main>
+    </>
+  ) : (
+    <Loading />
   );
 };

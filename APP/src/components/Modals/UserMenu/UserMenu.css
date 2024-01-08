@@ -12,8 +12,8 @@
 
   font-size: 80%;
   border-radius: 10px;
-  background-color: var(--dark-color-2);
-  color: var(--light-color-2);
+  background-color: var(--element-background-color);
+  color: var(--text-color);
   box-shadow: 1px 1px 5px black;
   list-style: none;
 }
@@ -22,9 +22,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 0.25rem;
-  padding-right: 0.5rem;
-  background-color: var(--dark-color);
+  padding: 0.15rem 0.5rem;
+  font-size: 18px;
+  background-color: var(--secondary-background-color);
   border-radius: 10px;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .logout-icon:hover {
-  color: var(--light-color-2);
+  color: var(--text-color);
 }
 
 .user-menu-link {
@@ -46,8 +46,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid var(--light-color-2);
+  border-top: 1px solid var(--secondary-element-background-color);
   padding: 0.25rem;
+}
+
+.user-menu li:nth-child(2) {
+  border: none;
 }
 
 .notifications {
@@ -56,9 +60,9 @@
 
 .user-menu-link:hover {
   font-weight: bold;
-  color: var(--alternative-color);
+  color: var(--secondary-text-color);
 }
 
 .open-menu:hover {
-  color: var(--light-color);
+  color: var(--text-color);
 }

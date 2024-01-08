@@ -15,6 +15,7 @@ const loadUserInfo = async (token, url, setData, setError) => {
     }
 
     const data = json.data;
+
     setData(data);
   } catch (error) {
     setError(error.message);
@@ -26,7 +27,7 @@ export const useGetData = ({ token, url }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    loadUserInfo(token, url, setData, setError);
+    token != "" && loadUserInfo(token, url, setData, setError);
   }, [token, url]);
 
   const refresh = () => loadUserInfo(token, url, setData, setError);
